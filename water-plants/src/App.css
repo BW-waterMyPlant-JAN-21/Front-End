@@ -11,7 +11,9 @@ h1 {
 .navigationItems {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: flex-end;
+  border: 2px solid coral;
+  width: 100%;
 }
 
 .mission {
@@ -39,22 +41,30 @@ h1 {
 }
 
 .Signup,
-.Login {
+.Login,
+.Home,
+.Dashboard {
   text-decoration: none;
   padding: 5px;
   list-style-type: none;
-  color: black;
+  color: aliceblue;
   font-size: 1.5rem;
 }
 
 .Signup:hover {
   color: greenyellow;
-  border-bottom: 2px solid greenyellow;
 }
 
 .Login:hover {
   color: greenyellow;
-  border-bottom: 2px solid greenyellow;
+}
+
+.Home:hover {
+  color: greenyellow;
+}
+
+.Dashboard:hover {
+  color: greenyellow;
 }
 
 li {

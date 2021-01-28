@@ -1,11 +1,9 @@
 import React from 'react';
-import Navigation from './Navigation.js';
 
 const Home = (props) => {
 
     return (
         <div className="landingPage">
-            <Navigation/>
             <div className="mission">
                 <h2>Our Mission Is Simple:</h2>
                 <h2>To Help You Keep Your Plants Hydrated</h2>

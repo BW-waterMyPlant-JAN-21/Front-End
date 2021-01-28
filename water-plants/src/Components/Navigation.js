@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom';
 const Navigation = (props) => {
     return (
         <div className="navigationItems">
-            <Link to="/signup" className = "Signup">
-                <li>Sign Up</li>
-            </Link>
-            <Link to="/login" className="Login">
-                <li>Log In</li>
-            </Link>
+            <li>
+                <Link to="/" className = "Home">Home
+                </Link>
+            </li>
+            <li>
+                <Link to="/dashboard" className = "Dashboard">Dashboard
+                </Link>
+            </li>
+            <li>
+                <Link to="/signup" className = "Signup">Sign Up
+                </Link>
+            </li>
+            <li>
+                <Link to="/login" className="Login">Log In
+                </Link>
+            </li>
         </div>
     )
 }
