@@ -1,38 +1,139 @@
-.App {
-  text-align: center;
+h1 {
+  text-align: right;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.landingPage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navigationItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border: 2px solid coral;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mission {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mission h2:hover {
+  border-bottom: 2px solid greenyellow;
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: stretch;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.Signup,
+.Login,
+.Home,
+.Dashboard {
+  text-decoration: none;
+  padding: 5px;
+  list-style-type: none;
+  color: aliceblue;
+  font-size: 1.5rem;
+}
+
+.Signup:hover {
+  color: greenyellow;
+}
+
+.Login:hover {
+  color: greenyellow;
+}
+
+.Home:hover {
+  color: greenyellow;
+}
+
+.Dashboard:hover {
+  color: greenyellow;
+}
+
+li {
+  list-style-type: none;
+}
+
+.instructions li,
+.steps li {
+  margin-bottom: 10px;
+}
+
+.steps li:hover {
+  border-bottom: 2px solid purple;
+}
+
+.form-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  max-width: 100px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-bottom: 10px;
+  background-color: green;
+  color: aliceblue;
+}
+
+button:hover {
+  background-color: aliceblue;
+  color: green;
+}
+
+.plantForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.plantForm input {
+  margin-left: 10px;
+}
+
+.Card {
+  border: 2px solid purple;
+}
+
+.plantContainer {
+  display: flex;
+  flex-direction: container;
+  justify-content: space-evenly;
 }
