@@ -13,7 +13,7 @@ function App() {
     phoneNumber: ' ',
     password: ' ',
     confirmPassword: ' ',
-}
+  }
 
   const [form, setForm] = useState(initialFormValues);
 
