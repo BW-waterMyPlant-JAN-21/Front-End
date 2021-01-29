@@ -136,4 +136,6 @@ button:hover {
   display: flex;
   flex-direction: container;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }

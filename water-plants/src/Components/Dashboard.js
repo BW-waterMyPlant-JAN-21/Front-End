@@ -4,7 +4,6 @@ import Plant from './Plant.js';
 
 const Dashboard = (props) => {
     const initialPlantDetails = {
-        id: " ",
         nickname: " ",
         species: " "
     }
@@ -32,9 +31,6 @@ const Dashboard = (props) => {
         <div>
             <h2>Add Your Plants!</h2>
             <form onSubmit = {createPlantCards} className="plantForm">
-                <label>id:
-                    <input onChange = {enterPlantDetails} type="text" value={plantDetails.id} name="id" placeholder="Enter ID"/>
-                </label>
                 <label>nickname:
                     <input onChange = {enterPlantDetails} type="text" value={plantDetails.nickname} name="nickname" placeholder="Enter nickname"/>
                 </label>
