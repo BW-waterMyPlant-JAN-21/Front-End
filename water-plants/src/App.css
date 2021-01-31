@@ -103,8 +103,8 @@ form {
   align-items: center;
 }
 
-form input {
-  margin-bottom: 10px;
+.plantForm label {
+  padding-right: 5px;
 }
 
 button {
@@ -120,7 +120,7 @@ button:hover {
 
 .plantForm {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 
@@ -138,4 +138,21 @@ button:hover {
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  max-width: 30%;
+}
+
+.plantContainer .card {
+  border: 2px solid aliceblue;
+  border-radius: 10px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.timer {
+  display: flex;
+  flex-direction: row;
+}
+
+.plantForm button {
+  margin-top: 10px;
 }
