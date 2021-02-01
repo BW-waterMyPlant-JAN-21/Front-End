@@ -134,25 +134,34 @@ button:hover {
 
 .plantContainer {
   display: flex;
-  flex-direction: container;
-  justify-content: space-evenly;
+  flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 10px;
-  max-width: 30%;
+  margin: 5px;
 }
 
 .plantContainer .card {
   border: 2px solid aliceblue;
-  border-radius: 10px;
   padding: 5px;
-  margin-right: 5px;
 }
 
 .timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.timer .ticktock {
   display: flex;
   flex-direction: row;
 }
 
 .plantForm button {
   margin-top: 10px;
+}
+
+.plantImage {
+  max-width: 250px;
 }

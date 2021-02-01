@@ -8,8 +8,8 @@ const Dashboard = (props) => {
   const initialPlantDetails = {
     nickname: " ",
     species: " ",
-    schedule: " ",
     plantImage: nature,
+    days: "00",
   };
 
   const [plantDetails, setPlantDetails] = useState(initialPlantDetails);
@@ -71,13 +71,13 @@ const Dashboard = (props) => {
             <p>H2O Frequency Timer:</p>
           <label>
             Set the Schedule
-            <select onChange = {enterPlantDetails} value = {plantDetails.schedule} name="schedule">
-              <option value="Every Minute">Every Minute</option>
-              <option value="Hourly">Hourly</option>
-              <option value="Daily">Daily</option>
-              <option value="Weekly">Weekly</option>
-              <option value="Bi Weekly">Bi-Weekly</option>
-              <option value="Every 10 Days">Every 10 Days</option>
+            <select onChange = {enterPlantDetails} value = {plantDetails.days} name="days">
+              <option>--Select Days--</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="7">7</option>
+              <option value="14">14</option>
+              <option value="5">5</option>
             </select>
           </label>
         </div>
@@ -96,19 +96,9 @@ const Dashboard = (props) => {
               nickname={plant.nickname}
               species={plant.species}
               data={userPlants}
-              countDownDate = {
-                (() => {
-                  switch(plant.schedule) {
-                    case 'Daily': return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1).getTime() ;
-                    case 'Weekly': return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7).getTime();
-                    case 'Bi Weekly': return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14).getTime();
-                    case 'Every 10 Days': return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 10).getTime();
-                    case 'Hourly': return new Date().getTime() + (60 * 60 * 1000);
-                    default: return new Date().getTime() + (60 * 1000);
-                  }
-                })()
-              }
+              days = {plant.days}
               image = {plant.plantImage}
+              today = {plant.today}
               triggerDelete = {triggerDelete}
             />
           );
