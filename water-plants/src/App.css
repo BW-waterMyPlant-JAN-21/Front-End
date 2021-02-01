@@ -103,8 +103,8 @@ form {
   align-items: center;
 }
 
-form input {
-  margin-bottom: 10px;
+.plantForm label {
+  padding-right: 5px;
 }
 
 button {
@@ -120,7 +120,7 @@ button:hover {
 
 .plantForm {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 
@@ -134,6 +134,34 @@ button:hover {
 
 .plantContainer {
   display: flex;
-  flex-direction: container;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  margin: 5px;
+}
+
+.plantContainer .card {
+  border: 2px solid aliceblue;
+  padding: 5px;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.timer .ticktock {
+  display: flex;
+  flex-direction: row;
+}
+
+.plantForm button {
+  margin-top: 10px;
+}
+
+.plantImage {
+  max-width: 250px;
 }
