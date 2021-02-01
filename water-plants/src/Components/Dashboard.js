@@ -1,11 +1,16 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React, {useState} from "react";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
-
+import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
-  const initialPlantDetails = {
+
+  const {createPlantFunction, deleteFunction, plantData} = props;
+
+  const {plant} = useParams();
+  console.log(plant);
+
+  const startPlantDetails = {
     nickname: " ",
     species: " ",
     plantImage: nature,
@@ -13,48 +18,19 @@ const Dashboard = (props) => {
     today: "",
   };
 
-  const [plantDetails, setPlantDetails] = useState(initialPlantDetails);
-  const [userPlants, setUserPlants] = useState([]);
+  const [plantDetails, setPlantDetails] = useState(startPlantDetails);
 
   const enterPlantDetails = (evt) => {
-    const { name, value, type} = evt.target;
-    console.log(name, type, value);
-    const updatedValue = (type === 'file' ? evt.target.files[0] : value);
-    setPlantDetails({...plantDetails, [name]: updatedValue});
-
-  };
+    const {name, value} = evt.target;
+    console.log(name, value);
+    setPlantDetails({...plantDetails, [name] : value});
+  }
 
   const createPlantCards = (evt) => {
     evt.preventDefault();
-
-    axios
-      .post("/users", plantDetails)
-      .then((res) => {
-        console.log(res.data)
-        setUserPlants([...userPlants, res.data])
-      })
-      .catch((err) => console.log(err));
-
-    setPlantDetails(initialPlantDetails);
-  };
-
-  const triggerDelete = ((index) => {
-    let copyUserPlants = [...userPlants];
-    copyUserPlants.splice(index, 1);
-    setUserPlants(copyUserPlants)
-  })
-
-  useEffect(() => {
-    const data = localStorage.getItem('user-plant-list');
-
-    if(data) {
-      setUserPlants(JSON.parse(data));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
-  });
+    createPlantFunction(plantDetails);
+    setPlantDetails(startPlantDetails);
+  }
 
   return (
     <div>
@@ -105,17 +81,18 @@ const Dashboard = (props) => {
         <button>Add The Plant</button>
       </form>
       <div className='plantContainer'>
-        {userPlants.map((plant,index) => {
+        {plantData.map((plant) => {
           return (
             <Plant
-              key = {index}
+              key = {plant.id}
+              num = {plant.id}
               nickname={plant.nickname}
               species={plant.species}
-              data={userPlants}
+              data={plantData}
               days = {plant.days}
               image = {plant.plantImage}
               today = {plant.today}
-              triggerDelete = {triggerDelete}
+              triggerDelete = {deleteFunction}
             />
           );
         })}

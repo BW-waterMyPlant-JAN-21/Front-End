@@ -1,8 +1,15 @@
 import React from 'react';
+import {Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Plant = (props) => {
-    const {nickname, species, data, triggerDelete, image, days, today} = props;
+    const {nickname, species, data, triggerDelete, image, days, today, num} = props;
+
+    let {url} = useRouteMatch();
+    console.log(url);
+
+    let {plant} = useParams();
+    console.log(plant);
 
     let toDay = new Date(today);
     let newDate = new Date(toDay);
@@ -56,7 +63,10 @@ const Plant = (props) => {
             <button onClick= {deleteFunction}size="small" color="primary">
                 Delete
             </button>
-            <button href="#">More Info</button>
+            
+            <Link to = {`/plants/${num}`}>
+                <button>More Info</button>
+            </Link>
             </div>   
         </div>
     )
