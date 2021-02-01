@@ -56,6 +56,10 @@ function App() {
     localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
   });
 
+  const updatePlantsData = (updatedArray) => {
+    setUserPlants(updatedArray);
+  }
+
   return (
     <div className="App">
       <h1>Water-My-Plants</h1>
@@ -79,7 +83,7 @@ function App() {
             />
         </Route>
         <Route path="/plants/:plant">
-            <PlantDetails plantData = {userPlants}/>
+            <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/>
           </Route>
         <Route exact path="/">
             <Home></Home>

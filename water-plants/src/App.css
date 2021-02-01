@@ -135,6 +135,8 @@ button:hover {
 .plantContainer {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   margin-bottom: 10px;
   margin: 5px;

@@ -11,17 +11,14 @@ const Plant = (props) => {
     let {plant} = useParams();
     console.log(plant);
 
-    let toDay = new Date(today);
-    let newDate = new Date(toDay);
-    newDate.setDate(newDate.getDate() + parseInt(days) + 1);
-
     const setNextDate = () => {
         let toDay = new Date(today);
         let newDate = new Date(toDay);
         newDate.setDate(newDate.getDate() + parseInt(days) + 1);
 
         let dd = newDate.getDate();
-        let mm = newDate.getMonth();
+        //One is added because it is a zero-based value
+        let mm = newDate.getMonth() + 1;
         let yy = newDate.getFullYear();
 
         if (mm < 10) {
