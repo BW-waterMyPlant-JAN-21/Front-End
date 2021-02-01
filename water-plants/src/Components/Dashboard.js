@@ -10,6 +10,7 @@ const Dashboard = (props) => {
     species: " ",
     plantImage: nature,
     days: "00",
+    today: "",
   };
 
   const [plantDetails, setPlantDetails] = useState(initialPlantDetails);
@@ -79,6 +80,9 @@ const Dashboard = (props) => {
               <option value="14">14</option>
               <option value="5">5</option>
             </select>
+          </label>
+          <label>Date when the plant was added:
+            <input value = {plantDetails.today} onChange={enterPlantDetails} name="today" type="date"/>
           </label>
         </div>
         <label>Select an Image

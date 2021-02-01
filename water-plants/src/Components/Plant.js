@@ -1,8 +1,33 @@
-import React from 'react';
-import Timer from './Timer.js';
+import React, {useState} from 'react';
+
 
 const Plant = (props) => {
-    const {nickname, species, data, triggerDelete, image, days} = props;
+    const {nickname, species, data, triggerDelete, image, days, today} = props;
+
+    let toDay = new Date(today);
+    let newDate = new Date(toDay);
+    newDate.setDate(newDate.getDate() + parseInt(days) + 1);
+
+    const setNextDate = () => {
+        let toDay = new Date(today);
+        let newDate = new Date(toDay);
+        newDate.setDate(newDate.getDate() + parseInt(days) + 1);
+
+        let dd = newDate.getDate();
+        let mm = newDate.getMonth();
+        let yy = newDate.getFullYear();
+
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+
+        if(dd < 10) {
+            dd = "0" + dd;
+        }
+
+        let formattedDate = yy + "-" + mm + "-" + dd;
+        return formattedDate;
+    }
 
     const deleteFunction = (evt) => {
     const nickNameText = evt.target.parentNode.parentNode.querySelector('h6').textContent;
@@ -25,7 +50,9 @@ const Plant = (props) => {
             <div className="plantImage">
                 <img width="100%" src={image} alt="nature" />
             </div>
-            <Timer days={days}/>
+            <h6>{`Date The Plant was Watered/Added: ${today}`} </h6>
+            <h6>{`Watering Schedule: Every ${days} `}{parseInt(days) > 1  ? 'days' : 'day'}</h6>
+            <h6>{`Next Date for Watering is ${setNextDate()}`}</h6>
             <button onClick= {deleteFunction}size="small" color="primary">
                 Delete
             </button>
