@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
@@ -39,10 +39,22 @@ const Dashboard = (props) => {
   };
 
   const triggerDelete = ((index) => {
-      let copyUserPlants = [...userPlants];
-      copyUserPlants.splice(index, 1);
-      setUserPlants(copyUserPlants)
+    let copyUserPlants = [...userPlants];
+    copyUserPlants.splice(index, 1);
+    setUserPlants(copyUserPlants)
   })
+
+  useEffect(() => {
+    const data = localStorage.getItem('user-plant-list');
+
+    if(data) {
+      setUserPlants(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
+  });
 
   return (
     <div>
