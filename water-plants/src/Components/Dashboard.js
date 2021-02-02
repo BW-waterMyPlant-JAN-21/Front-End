@@ -1,50 +1,39 @@
 import React, {useState} from "react";
-import axios from "axios";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
-
+import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
-  const initialPlantDetails = {
+
+  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants} = props;
+
+  const {plant} = useParams();
+  console.log(plant);
+
+  const startPlantDetails = {
     nickname: " ",
     species: " ",
     plantImage: nature,
     days: "00",
+    today: "",
   };
 
-  const [plantDetails, setPlantDetails] = useState(initialPlantDetails);
-  const [userPlants, setUserPlants] = useState([]);
+  const [plantDetails, setPlantDetails] = useState(startPlantDetails);
 
   const enterPlantDetails = (evt) => {
-    const { name, value, type} = evt.target;
-    console.log(name, type, value);
-    const updatedValue = (type === 'file' ? evt.target.files[0] : value);
-    setPlantDetails({...plantDetails, [name]: updatedValue});
-
-  };
+    const {name, value} = evt.target;
+    console.log(name, value);
+    setPlantDetails({...plantDetails, [name] : value});
+  }
 
   const createPlantCards = (evt) => {
     evt.preventDefault();
-
-    axios
-      .post("/users", plantDetails)
-      .then((res) => {
-        console.log(res.data)
-        setUserPlants([...userPlants, res.data])
-      })
-      .catch((err) => console.log(err));
-
-    setPlantDetails(initialPlantDetails);
-  };
-
-  const triggerDelete = ((index) => {
-      let copyUserPlants = [...userPlants];
-      copyUserPlants.splice(index, 1);
-      setUserPlants(copyUserPlants)
-  })
+    createPlantFunction(plantDetails);
+    setPlantDetails(startPlantDetails);
+  }
 
   return (
-    <div>
+    <div className="dashboardForm">
       <h2>Add Your Plants!</h2>
       <form onSubmit={createPlantCards} className='plantForm'>
         <label>
@@ -67,10 +56,10 @@ const Dashboard = (props) => {
             placeholder='Enter species'
           />
         </label>
-        <div>
-            <p>H2O Frequency Timer:</p>
+        <div className="wateringSchedule">
+          <p>H2O Frequency Timer:</p>
           <label>
-            Set the Schedule
+            Watering Frequency (Days)
             <select onChange = {enterPlantDetails} value = {plantDetails.days} name="days">
               <option>--Select Days--</option>
               <option value="1">1</option>
@@ -79,6 +68,9 @@ const Dashboard = (props) => {
               <option value="14">14</option>
               <option value="5">5</option>
             </select>
+          </label>
+          <label>Date when the plant was last watered:
+            <input value = {plantDetails.today} onChange={enterPlantDetails} name="today" type="date"/>
           </label>
         </div>
         <label>Select an Image
@@ -89,17 +81,20 @@ const Dashboard = (props) => {
         <button>Add The Plant</button>
       </form>
       <div className='plantContainer'>
-        {userPlants.map((plant,index) => {
+        {plantData.map((plant) => {
           return (
             <Plant
-              key = {index}
+              key = {plant.id}
+              num = {plant.id}
               nickname={plant.nickname}
               species={plant.species}
-              data={userPlants}
+              data={plantData}
               days = {plant.days}
               image = {plant.plantImage}
               today = {plant.today}
-              triggerDelete = {triggerDelete}
+              triggerDelete = {deleteFunction}
+              addThirstyPlantFunction = {addThirstyPlantFunction}
+              listResetPlants = {listResetPlants}
             />
           );
         })}
