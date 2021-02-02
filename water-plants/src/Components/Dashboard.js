@@ -32,6 +32,13 @@ const Dashboard = (props) => {
   return (
     <div className="dashboardForm">
       <h2>Add Your Plants!</h2>
+      {<div className="wateringNotification">
+          <h5>Important Notifications!</h5>
+          {listResetPlants.map((eachPlant) => {
+            return <p>{`${eachPlant.nickname} plant needs water`}</p>
+          })}
+        </div>
+      }
       <form onSubmit={createPlantCards} className='plantForm'>
         <label>
           nickname:
