@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
 
-  const {createPlantFunction, deleteFunction, plantData} = props;
+  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants} = props;
 
   const {plant} = useParams();
   console.log(plant);
@@ -93,6 +93,8 @@ const Dashboard = (props) => {
               image = {plant.plantImage}
               today = {plant.today}
               triggerDelete = {deleteFunction}
+              addThirstyPlantFunction = {addThirstyPlantFunction}
+              listResetPlants = {listResetPlants}
             />
           );
         })}

@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Plant = (props) => {
-    const {nickname, species, data, triggerDelete, image, days, today, num} = props;
+    const {nickname, species, data, triggerDelete, image, days, today, num, addThirstyPlantFunction, listResetPlants} = props;
 
     let {url} = useRouteMatch();
     console.log(url);
@@ -44,6 +44,34 @@ const Plant = (props) => {
             return data;
         })
     }
+
+    useEffect(() => {
+        let todaysDate = new Date();
+
+        let dd = todaysDate.getDate();
+        //One is added because it is a zero-based value
+        let mm = todaysDate.getMonth() + 1;
+        let yy = todaysDate.getFullYear();
+
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+        if(dd < 10) {
+            dd = "0" + dd;
+        }
+
+        let formattedTodaysDate = yy + "-" + mm + "-" + dd;
+
+        data.filter((datum) => {
+            let checkDate = setNextDate(datum.today, datum.days);
+            if(formattedTodaysDate === checkDate) {
+                if(!listResetPlants.includes(datum)) {
+                    addThirstyPlantFunction(datum);
+                }
+            }
+            console.log(listResetPlants);
+        })
+    }, [data, listResetPlants, addThirstyPlantFunction])
 
     return (
         <div className="plantContainer">

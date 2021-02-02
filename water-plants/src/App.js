@@ -19,6 +19,11 @@ function App() {
 
   const [userPlants, setUserPlants] = useState([]); //Includes all of User's Plants
   const [form, setForm] = useState(initialFormValues);
+  const [listResetPlants, setListResetPlants] = useState([]);
+
+  const addThirstyPlants = (thirstyPlant) => {
+    setListResetPlants([...listResetPlants, thirstyPlant]);
+  }
 
   const submitFunction = () => {
     setForm(initialFormValues); //Reset the form values
@@ -80,6 +85,8 @@ function App() {
             createPlantFunction = {createPlantCards} 
             deleteFunction = {triggerDelete}
             plantData = {userPlants}
+            addThirstyPlantFunction = {addThirstyPlants}
+            listResetPlants = {listResetPlants}
             />
         </Route>
         <Route path="/plants/:plant">
