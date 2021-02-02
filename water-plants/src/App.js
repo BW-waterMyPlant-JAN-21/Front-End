@@ -45,6 +45,19 @@ function App() {
     setUserPlants(copyUserPlants)
   })
 
+  const adjustResetList = (() => {
+    let copyResetArray = [...listResetPlants];
+    let deletedPlantIndex = 0;
+    copyResetArray.map((plant) => {
+      if(!userPlants.includes(plant)) {
+        deletedPlantIndex = copyResetArray.indexOf(plant);
+        copyResetArray.splice(deletedPlantIndex, 1);
+      }
+      setListResetPlants(copyResetArray);
+      return listResetPlants;
+    })
+  })
+
   const updateValue = (inputName, inputValue) => {
     setForm({...form, [inputName] : inputValue});
   }
@@ -87,6 +100,7 @@ function App() {
             plantData = {userPlants}
             addThirstyPlantFunction = {addThirstyPlants}
             listResetPlants = {listResetPlants}
+            adjustResetListFunction = {adjustResetList}
             />
         </Route>
         <Route path="/plants/:plant">

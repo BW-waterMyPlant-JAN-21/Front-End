@@ -3,7 +3,7 @@ import {Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Plant = (props) => {
-    const {nickname, species, data, triggerDelete, image, days, today, num, addThirstyPlantFunction, listResetPlants} = props;
+    const {nickname, species, data, triggerDelete, image, days, today, num, addThirstyPlantFunction, listResetPlants, adjustResetListFunction} = props;
 
     let {url} = useRouteMatch();
     console.log(url);
@@ -32,6 +32,7 @@ const Plant = (props) => {
         return formattedDate;
     }
 
+    //This will delete the plant from the list of plants for user and also delete it from the list of plants due for watering if it is included there. 
     const deleteFunction = (evt) => {
     const nickNameText = evt.target.parentNode.parentNode.querySelector('h6').textContent;
         
@@ -40,11 +41,14 @@ const Plant = (props) => {
             if(nickNameText.includes(datum.nickname)) {
                 datumIndex = data.indexOf(datum);
                 triggerDelete(datumIndex);
+                //adjustResetListFunction();
+                console.log(listResetPlants);
             }
             return data;
         })
     }
 
+    //This will create a list of all the plants which are due for watering today.
     useEffect(() => {
         let todaysDate = new Date();
 
@@ -70,8 +74,9 @@ const Plant = (props) => {
                 }
             }
             console.log(listResetPlants);
+            return data;
         })
-    }, [data, listResetPlants, addThirstyPlantFunction])
+    }, [data, listResetPlants, addThirstyPlantFunction, adjustResetListFunction])
 
     return (
         <div className="plantContainer">

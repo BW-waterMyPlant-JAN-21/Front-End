@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
 
-  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants} = props;
+  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants, adjustResetListFunction} = props;
 
   const {plant} = useParams();
   console.log(plant);
@@ -30,6 +30,7 @@ const Dashboard = (props) => {
     evt.preventDefault();
     createPlantFunction(plantDetails);
     setPlantDetails(startPlantDetails);
+    adjustResetListFunction();
   }
 
   return (
@@ -95,6 +96,7 @@ const Dashboard = (props) => {
               triggerDelete = {deleteFunction}
               addThirstyPlantFunction = {addThirstyPlantFunction}
               listResetPlants = {listResetPlants}
+              adjustResetListFunction = {adjustResetListFunction}
             />
           );
         })}

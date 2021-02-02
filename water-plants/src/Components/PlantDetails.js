@@ -50,6 +50,7 @@ const PlantDetails = (props) => {
                 plantIndex = plantData.indexOf(p);
             }
             console.log(plantIndex);
+            return plantData;
         })
         let copyArray = [...plantData];
         copyArray[plantIndex] = (individualPlant);
