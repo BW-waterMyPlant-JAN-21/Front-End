@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
@@ -11,10 +11,9 @@ const Plant = (props) => {
     let {plant} = useParams();
     console.log(plant);
 
-    const setNextDate = () => {
-        let toDay = new Date(today);
-        let newDate = new Date(toDay);
-        newDate.setDate(newDate.getDate() + parseInt(days) + 1);
+    const setNextDate = (dayAdded, wateringschedule) => {
+        let newDate = new Date(dayAdded);
+        newDate.setDate(newDate.getDate() + parseInt(wateringschedule) + 1);
 
         let dd = newDate.getDate();
         //One is added because it is a zero-based value
@@ -56,7 +55,7 @@ const Plant = (props) => {
             </div>
             <h6>{`Date The Plant was Watered/Added: ${today}`} </h6>
             <h6>{`Watering Schedule: Every ${days} `}{parseInt(days) > 1  ? 'days' : 'day'}</h6>
-            <h6>{`Next Date for Watering is ${setNextDate()}`}</h6>
+            <h6>{`Next Date for Watering is ${setNextDate(today, days)}`}</h6>
             <button onClick= {deleteFunction}size="small" color="primary">
                 Delete
             </button>

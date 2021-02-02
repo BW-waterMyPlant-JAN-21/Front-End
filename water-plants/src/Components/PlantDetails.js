@@ -62,7 +62,7 @@ const PlantDetails = (props) => {
         <div className="plantDetailsContainer">
            <h1>Update / Change Plant Details</h1>
            <form onSubmit={saveChangeFunction}>
-               <div>
+               <div> 
                    <img src={individualPlant.plantImage} alt="default"/>
                </div>
                <label> Species :

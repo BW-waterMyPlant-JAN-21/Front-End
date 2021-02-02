@@ -33,7 +33,7 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div>
+    <div className="dashboardForm">
       <h2>Add Your Plants!</h2>
       <form onSubmit={createPlantCards} className='plantForm'>
         <label>
@@ -56,10 +56,10 @@ const Dashboard = (props) => {
             placeholder='Enter species'
           />
         </label>
-        <div>
-            <p>H2O Frequency Timer:</p>
+        <div className="wateringSchedule">
+          <p>H2O Frequency Timer:</p>
           <label>
-            Set the Schedule
+            Watering Frequency (Days)
             <select onChange = {enterPlantDetails} value = {plantDetails.days} name="days">
               <option>--Select Days--</option>
               <option value="1">1</option>
@@ -69,7 +69,7 @@ const Dashboard = (props) => {
               <option value="5">5</option>
             </select>
           </label>
-          <label>Date when the plant was added:
+          <label>Date when the plant was last watered:
             <input value = {plantDetails.today} onChange={enterPlantDetails} name="today" type="date"/>
           </label>
         </div>
