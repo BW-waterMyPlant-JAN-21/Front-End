@@ -3,13 +3,32 @@ import {Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Plant = (props) => {
-    const {nickname, species, data, triggerDelete, image, days, today, num, addThirstyPlantFunction, listResetPlants, adjustResetListFunction} = props;
+    const {nickname, species, data, triggerDelete, image, days, today, num, addThirstyPlantFunction, listResetPlants, adjustResetListFunction, updatePlantsFunction} = props;
 
     let {url} = useRouteMatch();
     console.log(url);
 
     let {plant} = useParams();
     console.log(plant);
+
+    const resetCurrentWateringDate = () => {
+        let newDate = new Date();
+
+        let dd = newDate.getDate();
+        let mm = newDate.getMonth() + 1;
+        let yy = newDate.getFullYear();
+
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+
+        if(dd < 10) {
+            dd = "0" + dd;
+        }
+
+        let formattedDate = yy + "-" + mm + "-" + dd;
+        return formattedDate;
+    }
 
     const setNextDate = (dayAdded, wateringschedule) => {
         let newDate = new Date(dayAdded);
@@ -41,7 +60,7 @@ const Plant = (props) => {
             if(nickNameText.includes(datum.nickname)) {
                 datumIndex = data.indexOf(datum);
                 triggerDelete(datumIndex);
-                //adjustResetListFunction();
+                adjustResetListFunction();
                 console.log(listResetPlants);
             }
             return data;
@@ -78,6 +97,24 @@ const Plant = (props) => {
         })
     }, [data, listResetPlants, addThirstyPlantFunction, adjustResetListFunction])
 
+    const resetDateFunction = (evt) => {
+        let copyPlantsData = [...data];
+        let selectedPlantIndex = 0;
+        let nickNameText = evt.target.parentNode.querySelector('h6').textContent;
+
+        data.filter((datum) => {
+            if(nickNameText.includes(datum.nickname)) {
+                selectedPlantIndex = data.indexOf(datum);
+                console.log(datum);
+            }
+            return data;
+        })
+        console.log(selectedPlantIndex);
+        copyPlantsData[selectedPlantIndex] = ({...copyPlantsData[selectedPlantIndex], today: resetCurrentWateringDate()})
+        updatePlantsFunction(copyPlantsData);
+        adjustResetListFunction();
+    }
+
     return (
         <div className="plantContainer">
             <div className = "card">
@@ -96,6 +133,7 @@ const Plant = (props) => {
             <Link to = {`/plants/${num}`}>
                 <button>More Info</button>
             </Link>
+            <button onClick={resetDateFunction}>Reset Date</button>
             </div>   
         </div>
     )

@@ -74,6 +74,7 @@ function App() {
     localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
   });
 
+  //This will help pass down the set plants data function to the child components
   const updatePlantsData = (updatedArray) => {
     setUserPlants(updatedArray);
   }
@@ -101,6 +102,7 @@ function App() {
             addThirstyPlantFunction = {addThirstyPlants}
             listResetPlants = {listResetPlants}
             adjustResetListFunction = {adjustResetList}
+            updatePlantsFunction = {updatePlantsData}
             />
         </Route>
         <Route path="/plants/:plant">

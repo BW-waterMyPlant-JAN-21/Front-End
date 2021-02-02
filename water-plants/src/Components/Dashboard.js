@@ -1,14 +1,10 @@
 import React, {useState} from "react";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
-import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
 
-  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants, adjustResetListFunction} = props;
-
-  const {plant} = useParams();
-  console.log(plant);
+  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants, adjustResetListFunction, updatePlantsFunction} = props;
 
   const startPlantDetails = {
     nickname: " ",
@@ -96,6 +92,7 @@ const Dashboard = (props) => {
               triggerDelete = {deleteFunction}
               addThirstyPlantFunction = {addThirstyPlantFunction}
               listResetPlants = {listResetPlants}
+              updatePlantsFunction = {updatePlantsFunction}
               adjustResetListFunction = {adjustResetListFunction}
             />
           );
