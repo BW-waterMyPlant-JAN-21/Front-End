@@ -191,7 +191,7 @@ button:hover {
 }
 
 .wateringNotification {
-  color: tomato;
+  color: yellowgreen;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

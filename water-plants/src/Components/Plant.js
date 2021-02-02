@@ -110,9 +110,16 @@ const Plant = (props) => {
             return data;
         })
         console.log(selectedPlantIndex);
-        copyPlantsData[selectedPlantIndex] = ({...copyPlantsData[selectedPlantIndex], today: resetCurrentWateringDate()})
-        updatePlantsFunction(copyPlantsData);
-        adjustResetListFunction();
+
+        let originalWateringDate = setNextDate(copyPlantsData[selectedPlantIndex].today, copyPlantsData[selectedPlantIndex].days);
+        let currentDate = resetCurrentWateringDate();
+
+        //This will check if the plants are due for watering. Only then will the date be reset. Thus, the button will not work if the plants are not due for watering. 
+        if(originalWateringDate === currentDate) {
+            copyPlantsData[selectedPlantIndex] = ({...copyPlantsData[selectedPlantIndex], today: resetCurrentWateringDate()})
+            updatePlantsFunction(copyPlantsData);
+            adjustResetListFunction();
+        }
     }
 
     return (
