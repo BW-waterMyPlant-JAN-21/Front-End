@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import React, {useState, useContext, useEffect} from 'react';
 import * as yup from 'yup';
+import {GlobalContext} from '../context/globalContext'
 
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
@@ -14,21 +16,29 @@ const schema = yup.object().shape({
     .min(8, 'Minimum 8 characters required!'),
     phoneNumber: yup.number()
     .required('Phone Number is Required'),
-    confirmPassword: yup.string()
-    .required('Please Confirm Password before submitting the form')
+    // confirmPassword: yup.string()
+    // .required('Please Confirm Password before submitting the form')
 })
 
 const Signup = (props) => {
-    const {form, updateValue, submitFunction} = props;
+
+    let {disabled, setDisabled} = useContext(GlobalContext)
+
+    const[form,updateValue] = useState({
+        username: '',
+        phoneNumber: '',
+        password: '',
+        
+    })
+   
 
     const [errors, setErrors] = useState({
         username: ' ',
         phoneNumber: ' ',
         password: ' ',
-        confirmPassword: ' '
+        // confirmPassword: ' '
     })
 
-    const[disabled, setDisabled] = useState(true);
 
     const setFormErrors = (name, value) => {
         yup.reach(schema, name).validate(value)
@@ -38,16 +48,29 @@ const Signup = (props) => {
         })
     }
 
-    const changeFunction = (evt) => {
-        const{name, value} = evt.target;
-        console.log(name, value);
-        updateValue(name, value);
-        setFormErrors(name, value);
+    const changeFunction = (e) => {
+        // const{name, value} = evt.target;
+        // console.log(name, value);
+        // updateValue(name, value);
+        // setFormErrors(name, value);
+        updateValue({...form,[e.target.name]:e.target.value})
+        console.log('form data in change',form)
     }
 
     useEffect(() => {
         schema.isValid(form).then(valid =>setDisabled(!valid))
     }, [form])
+
+    const submitFunction =(e)=>{
+        e.preventDefault();
+
+        console.log('form',form)
+        axios
+        .post('https://waterplant-test.herokuapp.com/register',{username:form.username,password: form.password,phoneNumber: form.phoneNumber})
+        .then((res)=>{
+        console.log(res.data)})
+        .catch(err=>console.log(err))
+    }
 
     return (
         <div className="form-signup">
@@ -64,11 +87,12 @@ const Signup = (props) => {
                     <input onChange={changeFunction} value={form.password} name="password" type="text" placeholder="Enter Password"/>
                 </label>
                 <p style={{color: 'red'}}>{errors.password}</p>
-                <label> Confirm Password:
+                {/* <label> Confirm Password:
                     <input onChange={changeFunction} value={form.confirmPassword} name="confirmPassword" type="text" placeholder="Enter Pasword Again to Confirm"/>
-                </label>
-                <p style={{color: 'red'}}>{errors.confirmPassword}</p>
-                <button disabled = {disabled}>{disabled ? 'Fill The Form' : 'Submit Form'}</button>
+                </label> */}
+                {/* <p style={{color: 'red'}}>{errors.confirmPassword}</p> */}
+                <button>sign up </button>
+                {/* disabled = {disabled}>{disabled ? 'Fill The Form' : 'Submit Form'} */}
             </form>
         </div>
     )
