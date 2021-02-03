@@ -21,6 +21,8 @@ function App() {
   const [form, setForm] = useState(initialFormValues);
   const [listResetPlants, setListResetPlants] = useState([]);
 
+  const [authenticatedUser, setAuthentication] = useState(false);
+
   const addThirstyPlants = (thirstyPlant) => {
     setListResetPlants([...listResetPlants, thirstyPlant]);
   }
@@ -45,6 +47,19 @@ function App() {
     setUserPlants(copyUserPlants)
   })
 
+  const adjustResetList = (() => {
+    let copyResetArray = [...listResetPlants];
+    let deletedPlantIndex = 0;
+    copyResetArray.map((plant) => {
+      if(!userPlants.includes(plant)) {
+        deletedPlantIndex = copyResetArray.indexOf(plant);
+        copyResetArray.splice(deletedPlantIndex, 1);
+      }
+      setListResetPlants(copyResetArray);
+      return listResetPlants;
+    })
+  })
+
   const updateValue = (inputName, inputValue) => {
     setForm({...form, [inputName] : inputValue});
   }
@@ -61,15 +76,31 @@ function App() {
     localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
   });
 
+  //This will help pass down the set plants data function to the child components
   const updatePlantsData = (updatedArray) => {
     setUserPlants(updatedArray);
   }
 
+  /*Fake User Authentication Data*/
+  const admin = {
+    userName : 'jayaram',
+    password: 'jayaram123',
+  }
+
+  const authenticateUserFunction = (status) => {
+    setAuthentication(status);
+  }
+
+  /*Fake User Authentication Data*/
+
   return (
     <div className="App">
       <h1>Water-My-Plants</h1>
-      <Navigation/>
+      <Navigation authenticatedUser = {authenticatedUser} authenticateUserFunction = {authenticateUserFunction}/>
       <Switch>
+        <Route exact path="/">
+            <Home></Home>
+        </Route>
         <Route path="/signup">
             <Signup
               form = {form}
@@ -78,7 +109,7 @@ function App() {
             />
         </Route>
         <Route path="/login">
-            <Login/>
+            <Login admin = {admin} authenticateUserFunction = {authenticateUserFunction} authenticatedUser = {authenticatedUser}/>
         </Route>
         <Route path="/dashboard">
             <Dashboard 
@@ -87,14 +118,13 @@ function App() {
             plantData = {userPlants}
             addThirstyPlantFunction = {addThirstyPlants}
             listResetPlants = {listResetPlants}
+            adjustResetListFunction = {adjustResetList}
+            updatePlantsFunction = {updatePlantsData}
             />
         </Route>
         <Route path="/plants/:plant">
             <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/>
           </Route>
-        <Route exact path="/">
-            <Home></Home>
-        </Route>
       </Switch>
     </div>
   );

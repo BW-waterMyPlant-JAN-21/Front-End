@@ -1,14 +1,10 @@
 import React, {useState} from "react";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
-import {useParams} from 'react-router-dom';
 
 const Dashboard = (props) => {
 
-  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants} = props;
-
-  const {plant} = useParams();
-  console.log(plant);
+  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants, adjustResetListFunction, updatePlantsFunction} = props;
 
   const startPlantDetails = {
     nickname: " ",
@@ -30,11 +26,19 @@ const Dashboard = (props) => {
     evt.preventDefault();
     createPlantFunction(plantDetails);
     setPlantDetails(startPlantDetails);
+    adjustResetListFunction();
   }
 
   return (
     <div className="dashboardForm">
       <h2>Add Your Plants!</h2>
+      {<div className="wateringNotification">
+          <h5>Important Notifications!</h5>
+          {listResetPlants.map((eachPlant) => {
+            return <p>{`${eachPlant.nickname} plant needs water`}</p>
+          })}
+        </div>
+      }
       <form onSubmit={createPlantCards} className='plantForm'>
         <label>
           nickname:
@@ -95,6 +99,8 @@ const Dashboard = (props) => {
               triggerDelete = {deleteFunction}
               addThirstyPlantFunction = {addThirstyPlantFunction}
               listResetPlants = {listResetPlants}
+              updatePlantsFunction = {updatePlantsFunction}
+              adjustResetListFunction = {adjustResetListFunction}
             />
           );
         })}
