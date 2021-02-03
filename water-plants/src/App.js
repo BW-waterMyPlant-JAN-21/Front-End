@@ -7,6 +7,7 @@ import Signup from './Components/Signup.js';
 import Navigation from './Components/Navigation.js';
 import Dashboard from './Components/Dashboard.js';
 import PlantDetails from './Components/PlantDetails.js';
+import PrivateRoute from './utils/privateRoute'
 import axios from 'axios';
 
 function App() {
@@ -14,11 +15,11 @@ function App() {
     username : ' ',
     phoneNumber: ' ',
     password: ' ',
-    confirmPassword: ' ',
+    // confirmPassword: ' ',
   }
 
   const [userPlants, setUserPlants] = useState([]); //Includes all of User's Plants
-  const [form, setForm] = useState(initialFormValues);
+  // const [form, setForm] = useState(initialFormValues);
   const [listResetPlants, setListResetPlants] = useState([]);
 
   const [authenticatedUser, setAuthentication] = useState(false);
@@ -27,9 +28,9 @@ function App() {
     setListResetPlants([...listResetPlants, thirstyPlant]);
   }
 
-  const submitFunction = () => {
-    setForm(initialFormValues); //Reset the form values
-  }
+  // const submitFunction = () => {
+  //   setForm(initialFormValues); //Reset the form values
+  // }
 
   const createPlantCards = (plantDetails) => {
     axios
@@ -60,21 +61,21 @@ function App() {
     })
   })
 
-  const updateValue = (inputName, inputValue) => {
-    setForm({...form, [inputName] : inputValue});
-  }
+  // const updateValue = (inputName, inputValue) => {
+  //   setForm({...form, [inputName] : inputValue});
+  // }
 
-  useEffect(() => {
-    const data = localStorage.getItem('user-plant-list');
+  // useEffect(() => {
+  //   const data = localStorage.getItem('user-plant-list');
 
-    if(data) {
-      setUserPlants(JSON.parse(data));
-    }
-  }, []);
+  //   if(data) {
+  //     setUserPlants(JSON.parse(data));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
-  });
+  // useEffect(() => {
+  //   localStorage.setItem('user-plant-list', JSON.stringify(userPlants));
+  // });
 
   //This will help pass down the set plants data function to the child components
   const updatePlantsData = (updatedArray) => {
@@ -102,26 +103,12 @@ function App() {
             <Home></Home>
         </Route>
         <Route path="/signup">
-            <Signup
-              form = {form}
-              updateValue = {updateValue}
-              submitFunction = {submitFunction}
-            />
+            <Signup />
         </Route>
-        <Route path="/login">
-            <Login admin = {admin} authenticateUserFunction = {authenticateUserFunction} authenticatedUser = {authenticatedUser}/>
-        </Route>
-        <Route path="/dashboard">
-            <Dashboard 
-            createPlantFunction = {createPlantCards} 
-            deleteFunction = {triggerDelete}
-            plantData = {userPlants}
-            addThirstyPlantFunction = {addThirstyPlants}
-            listResetPlants = {listResetPlants}
-            adjustResetListFunction = {adjustResetList}
-            updatePlantsFunction = {updatePlantsData}
-            />
-        </Route>
+        <Route path="/login" component={Login}/>
+        
+        <PrivateRoute path="/dashboard" component={Dashboard}/>
+           
         <Route path="/plants/:plant">
             <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/>
           </Route>

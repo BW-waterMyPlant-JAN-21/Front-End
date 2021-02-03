@@ -34,9 +34,9 @@ const Dashboard = (props) => {
       <h2>Add Your Plants!</h2>
       {<div className="wateringNotification">
           <h5>Important Notifications!</h5>
-          {listResetPlants.map((eachPlant) => {
+          {/* {listResetPlants.map((eachPlant) => {
             return <p>{`${eachPlant.nickname} plant needs water`}</p>
-          })}
+          })} */}
         </div>
       }
       <form onSubmit={createPlantCards} className='plantForm'>
@@ -85,7 +85,7 @@ const Dashboard = (props) => {
         <button>Add The Plant</button>
       </form>
       <div className='plantContainer'>
-        {plantData.map((plant) => {
+        {/* {plantData.map((plant) => {
           return (
             <Plant
               key = {plant.id}
@@ -103,7 +103,7 @@ const Dashboard = (props) => {
               adjustResetListFunction = {adjustResetListFunction}
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );
