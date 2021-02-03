@@ -21,6 +21,8 @@ function App() {
   const [form, setForm] = useState(initialFormValues);
   const [listResetPlants, setListResetPlants] = useState([]);
 
+  const [authenticatedUser, setAuthentication] = useState(false);
+
   const addThirstyPlants = (thirstyPlant) => {
     setListResetPlants([...listResetPlants, thirstyPlant]);
   }
@@ -79,11 +81,26 @@ function App() {
     setUserPlants(updatedArray);
   }
 
+  /*Fake User Authentication Data*/
+  const admin = {
+    userName : 'jayaram',
+    password: 'jayaram123',
+  }
+
+  const authenticateUserFunction = (status) => {
+    setAuthentication(status);
+  }
+
+  /*Fake User Authentication Data*/
+
   return (
     <div className="App">
       <h1>Water-My-Plants</h1>
-      <Navigation/>
+      <Navigation authenticatedUser = {authenticatedUser} authenticateUserFunction = {authenticateUserFunction}/>
       <Switch>
+        <Route exact path="/">
+            <Home></Home>
+        </Route>
         <Route path="/signup">
             <Signup
               form = {form}
@@ -92,7 +109,7 @@ function App() {
             />
         </Route>
         <Route path="/login">
-            <Login/>
+            <Login admin = {admin} authenticateUserFunction = {authenticateUserFunction} authenticatedUser = {authenticatedUser}/>
         </Route>
         <Route path="/dashboard">
             <Dashboard 
@@ -108,9 +125,6 @@ function App() {
         <Route path="/plants/:plant">
             <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/>
           </Route>
-        <Route exact path="/">
-            <Home></Home>
-        </Route>
       </Switch>
     </div>
   );
