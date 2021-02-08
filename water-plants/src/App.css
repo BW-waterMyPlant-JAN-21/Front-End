@@ -11,10 +11,16 @@ h1 {
 .navigationItems {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */;
+  justify-content: space-around;
   border: 2px solid coral;
   width: 100%;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */;
+  padding: 1% 5%;
+}
+.navigationItems .addPlant {
+  /* border: solid red; */
+  width: 50%;
 }
 
 .mission {
@@ -44,13 +50,16 @@ h1 {
 .Signup,
 .Login,
 .Home,
-.Dashboard {
+.Dashboard,.logout, .addPlant {
   text-decoration: none;
-  padding: 5px;
+  /* padding: 1.5%; */
   list-style-type: none;
   color: aliceblue;
+  /* margin: 1%; */
   font-size: 1.5rem;
+  width: 20%
 }
+
 
 .Signup:hover {
   color: greenyellow;
@@ -168,7 +177,12 @@ button:hover {
 
 .plantContainer .card {
   border: 2px solid aliceblue;
-  padding: 5px;
+  padding: 2.5%;
+  text-align: center;
+  width: 20%
+}
+.plantContainer .card a {
+  text-decoration: none;
 }
 
 .plantForm button {
@@ -199,3 +213,4 @@ button:hover {
   margin-right: 5px;
   border: 2px solid coral;
 }
+

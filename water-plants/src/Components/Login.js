@@ -1,6 +1,7 @@
 import React, {useState,useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import {GlobalContext} from '../context/globalContext'
+import jwt_decode from 'jwt-decode'
 import axios from 'axios'
 
 const Login = () => {
@@ -10,7 +11,7 @@ const Login = () => {
         username: "",
         password: "",
     })
-    // const {user,setUser} = useContext(GlobalContext)
+    const {setLoggedIn,setActiveUser,activeUser} = useContext(GlobalContext)
   
 
     const history = useHistory();
@@ -20,17 +21,21 @@ const Login = () => {
         console.log(name, value);
         setUser({...user, [evt.target.name] : evt.target.value});
     }
-    console.log('user in login ',user)
+   
 
     const loginAttempt = (e) => {
         e.preventDefault();
         
      axios
-     .post('https://waterplant-test.herokuapp.com/login',user)
+     .post('https://waterplant-101.herokuapp.com/auth/login',user)
      .then(res=>{localStorage.setItem('token',res.data.token);
+    //  let decoded = jwt_decode(res.data.token);
+     setActiveUser(jwt_decode(res.data.token).userId)
+     console.log('acive user in login ',activeUser)
      push('/dashboard')
      console.log('token',res.data.token)
-    })
+     setLoggedIn(true)
+     })
      .catch(err=>console.log(err))
     }
 

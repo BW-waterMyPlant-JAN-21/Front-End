@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState, useContext, useEffect} from 'react';
 import * as yup from 'yup';
 import {GlobalContext} from '../context/globalContext'
+import {useHistory} from 'react-router-dom'
 
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
@@ -21,6 +22,7 @@ const schema = yup.object().shape({
 })
 
 const Signup = (props) => {
+    let {push} = useHistory()
 
     let {disabled, setDisabled} = useContext(GlobalContext)
 
@@ -66,8 +68,9 @@ const Signup = (props) => {
 
         console.log('form',form)
         axios
-        .post('https://waterplant-test.herokuapp.com/register',{username:form.username,password: form.password,phoneNumber: form.phoneNumber})
+        .post('https://waterplant-101.herokuapp.com/auth/register',form)
         .then((res)=>{
+            push('/login');
         console.log(res.data)})
         .catch(err=>console.log(err))
     }

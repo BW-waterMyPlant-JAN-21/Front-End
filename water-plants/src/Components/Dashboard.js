@@ -1,37 +1,40 @@
-import React, {useState} from "react";
+import React, {useState,useEffect,useContext} from "react";
 import Plant from "./Plant.js";
 import nature from "../Assets/nature.jpg";
+import {GlobalContext} from '../context/globalContext'
+import PlantForm from './plant-Form'
+import axios from "axios";
+import {Link} from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 
-const Dashboard = (props) => {
+const Dashboard = () => {
 
-  const {createPlantFunction, deleteFunction, plantData, addThirstyPlantFunction, listResetPlants, adjustResetListFunction, updatePlantsFunction} = props;
 
-  const startPlantDetails = {
-    nickname: " ",
-    species: " ",
-    plantImage: nature,
-    days: "00",
-    today: "",
-  };
+  let {plants,setPlants,activeUser,setActiveUser} = useContext(GlobalContext)
 
-  const [plantDetails, setPlantDetails] = useState(startPlantDetails);
+  //get the active user
+  useEffect(() => {
+    
+  }, [])
 
-  const enterPlantDetails = (evt) => {
-    const {name, value} = evt.target;
-    console.log(name, value);
-    setPlantDetails({...plantDetails, [name] : value});
-  }
+  // get all plants
+  useEffect(() => {
 
-  const createPlantCards = (evt) => {
-    evt.preventDefault();
-    createPlantFunction(plantDetails);
-    setPlantDetails(startPlantDetails);
-    adjustResetListFunction();
-  }
+    let token = localStorage.getItem('token');
+    setActiveUser(jwt_decode(token).userId);
+    console.log('acive user in dashboard ',activeUser)
+    
+  axios
+  .get(`https://waterplant-101.herokuapp.com/plants/users/${activeUser}`,{headers:{authorization:token}})
+  .then(res=>{setPlants(res.data);console.log('plants in dashboard',plants)})
+  .catch(err=>console.log(err))
+  }, [])
+
 
   return (
-    <div className="dashboardForm">
-      <h2>Add Your Plants!</h2>
+    <div className="dashboard">
+ 
+   
       {<div className="wateringNotification">
           <h5>Important Notifications!</h5>
           {/* {listResetPlants.map((eachPlant) => {
@@ -39,71 +42,22 @@ const Dashboard = (props) => {
           })} */}
         </div>
       }
-      <form onSubmit={createPlantCards} className='plantForm'>
-        <label>
-          nickname:
-          <input
-            onChange={enterPlantDetails}
-            type='text'
-            value={plantDetails.nickname}
-            name='nickname'
-            placeholder='Enter nickname'
-          />
-        </label>
-        <label>
-          species:
-          <input
-            onChange={enterPlantDetails}
-            type='text'
-            value={plantDetails.species}
-            name='species'
-            placeholder='Enter species'
-          />
-        </label>
-        <div className="wateringSchedule">
-          <p>H2O Frequency Timer:</p>
-          <label>
-            Watering Frequency (Days)
-            <select onChange = {enterPlantDetails} value = {plantDetails.days} name="days">
-              <option>--Select Days--</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="7">7</option>
-              <option value="14">14</option>
-              <option value="5">5</option>
-            </select>
-          </label>
-          <label>Date when the plant was last watered:
-            <input value = {plantDetails.today} onChange={enterPlantDetails} name="today" type="date"/>
-          </label>
-        </div>
-        <label>Select an Image
-          <div>
-            <input type="file" onChange ={enterPlantDetails} name="plantImage"/>
-          </div>
-        </label>
-        <button>Add The Plant</button>
-      </form>
+     {/* <PlantForm/> */}
+
+
+     
       <div className='plantContainer'>
-        {/* {plantData.map((plant) => {
-          return (
-            <Plant
-              key = {plant.id}
-              num = {plant.id}
-              nickname={plant.nickname}
-              species={plant.species}
-              data={plantData}
-              days = {plant.days}
-              image = {plant.plantImage}
-              today = {plant.today}
-              triggerDelete = {deleteFunction}
-              addThirstyPlantFunction = {addThirstyPlantFunction}
-              listResetPlants = {listResetPlants}
-              updatePlantsFunction = {updatePlantsFunction}
-              adjustResetListFunction = {adjustResetListFunction}
-            />
-          );
-        })} */}
+        {
+          plants.map(plant=>{
+           return  <div className='card' key={plant.id}>
+              <h2>{plant.nickname}</h2>
+              <p>Species: {plant.species}</p>
+              <p>Watering Frequency: {plant.frequency_d}</p>
+              <Link to = {`/plants/${plant.id}`}>More</Link>
+              </div>
+
+          })
+        }
       </div>
     </div>
   );

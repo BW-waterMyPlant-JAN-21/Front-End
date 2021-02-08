@@ -9,6 +9,8 @@ import Dashboard from './Components/Dashboard.js';
 import PlantDetails from './Components/PlantDetails.js';
 import PrivateRoute from './utils/privateRoute'
 import axios from 'axios';
+import UpdateForm from './Components/updateForm'
+import PlantForm from './Components/plant-Form'
 
 function App() {
   const initialFormValues = {
@@ -108,10 +110,16 @@ function App() {
         <Route path="/login" component={Login}/>
         
         <PrivateRoute path="/dashboard" component={Dashboard}/>
+        <PrivateRoute path="/plantForm" component={PlantForm}/>
            
-        <Route path="/plants/:plant">
-            <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/>
+        <Route exact path="/plants/:id">
+            {/* <PlantDetails plantData = {userPlants} updatePlantsFunction = {updatePlantsData}/> */}
+            <PlantDetails/>
           </Route>
+          <Route  path='/plants/:id/editing' component={UpdateForm}/>
+         
+          
+           
       </Switch>
     </div>
   );
