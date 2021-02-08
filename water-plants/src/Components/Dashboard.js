@@ -1,8 +1,6 @@
-import React, {useState,useEffect,useContext} from "react";
-import Plant from "./Plant.js";
-import nature from "../Assets/nature.jpg";
+import React, {useEffect,useContext} from "react";
+// import nature from "../Assets/nature.jpg";
 import {GlobalContext} from '../context/globalContext'
-import PlantForm from './plant-Form'
 import axios from "axios";
 import {Link} from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
