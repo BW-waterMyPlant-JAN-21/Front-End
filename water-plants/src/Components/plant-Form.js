@@ -43,7 +43,7 @@ console.log('user id from token by decoder in plant form',activeUser)
           console.log('plant data in form',plantDetails)
           axios
           .create({headers:{authorization:localStorage.getItem('token')}})
-          .post(`https://waterplant-101.herokuapp.com/plants/users/${activeUser}`,plantDetails)
+          .post(`https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/plants/users/${activeUser}`,plantDetails)
           .then(res=>{console.log('added newPlant',res.data);push('/dashboard')}) //push(`/plants/${res.data[0].id}`)
           .catch(err=>console.log(err))
       }

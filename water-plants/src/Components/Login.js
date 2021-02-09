@@ -27,7 +27,7 @@ const Login = () => {
         e.preventDefault();
         
      axios
-     .post('https://waterplant-101.herokuapp.com/auth/login',user)
+     .post('https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/auth/login',user)
      .then(res=>{localStorage.setItem('token',res.data.token);
     //  let decoded = jwt_decode(res.data.token);
      setActiveUser(jwt_decode(res.data.token).userId)

@@ -68,7 +68,7 @@ const Signup = (props) => {
 
         console.log('form',form)
         axios
-        .post('https://waterplant-101.herokuapp.com/auth/register',form)
+        .post('https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/auth/register',form)
         .then((res)=>{
             push('/login');
         console.log(res.data)})
