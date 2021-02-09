@@ -20,48 +20,48 @@ function App() {
     // confirmPassword: ' ',
   }
 
-  const [userPlants, setUserPlants] = useState([]); //Includes all of User's Plants
+  // const [userPlants, setUserPlants] = useState([]); //Includes all of User's Plants
   // const [form, setForm] = useState(initialFormValues);
-  const [listResetPlants, setListResetPlants] = useState([]);
+  // const [listResetPlants, setListResetPlants] = useState([]);
 
-  const [authenticatedUser, setAuthentication] = useState(false);
+  // const [authenticatedUser, setAuthentication] = useState(false);
 
-  const addThirstyPlants = (thirstyPlant) => {
-    setListResetPlants([...listResetPlants, thirstyPlant]);
-  }
+  // const addThirstyPlants = (thirstyPlant) => {
+  //   setListResetPlants([...listResetPlants, thirstyPlant]);
+  // }
 
   // const submitFunction = () => {
   //   setForm(initialFormValues); //Reset the form values
   // }
 
-  const createPlantCards = (plantDetails) => {
-    axios
-      .post("/users", plantDetails)
-      .then((res) => {
-        console.log(res.data)
-        setUserPlants([...userPlants, res.data])
-      })
-      .catch((err) => console.log(err));
-  };
+  // const createPlantCards = (plantDetails) => {
+  //   axios
+  //     .post("/users", plantDetails)
+  //     .then((res) => {
+  //       console.log(res.data)
+  //       setUserPlants([...userPlants, res.data])
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  const triggerDelete = ((index) => {
-    let copyUserPlants = [...userPlants];
-    copyUserPlants.splice(index, 1);
-    setUserPlants(copyUserPlants)
-  })
+  // const triggerDelete = ((index) => {
+  //   let copyUserPlants = [...userPlants];
+  //   copyUserPlants.splice(index, 1);
+  //   setUserPlants(copyUserPlants)
+  // })
 
-  const adjustResetList = (() => {
-    let copyResetArray = [...listResetPlants];
-    let deletedPlantIndex = 0;
-    copyResetArray.map((plant) => {
-      if(!userPlants.includes(plant)) {
-        deletedPlantIndex = copyResetArray.indexOf(plant);
-        copyResetArray.splice(deletedPlantIndex, 1);
-      }
-      setListResetPlants(copyResetArray);
-      return listResetPlants;
-    })
-  })
+  // const adjustResetList = (() => {
+  //   let copyResetArray = [...listResetPlants];
+  //   let deletedPlantIndex = 0;
+  //   copyResetArray.map((plant) => {
+  //     if(!userPlants.includes(plant)) {
+  //       deletedPlantIndex = copyResetArray.indexOf(plant);
+  //       copyResetArray.splice(deletedPlantIndex, 1);
+  //     }
+  //     setListResetPlants(copyResetArray);
+  //     return listResetPlants;
+  //   })
+  // })
 
   // const updateValue = (inputName, inputValue) => {
   //   setForm({...form, [inputName] : inputValue});
@@ -80,26 +80,26 @@ function App() {
   // });
 
   //This will help pass down the set plants data function to the child components
-  const updatePlantsData = (updatedArray) => {
-    setUserPlants(updatedArray);
-  }
+  // const updatePlantsData = (updatedArray) => {
+  //   setUserPlants(updatedArray);
+  // }
 
   /*Fake User Authentication Data*/
-  const admin = {
-    userName : 'jayaram',
-    password: 'jayaram123',
-  }
+  // const admin = {
+  //   userName : 'jayaram',
+  //   password: 'jayaram123',
+  // }
 
-  const authenticateUserFunction = (status) => {
-    setAuthentication(status);
-  }
+  // const authenticateUserFunction = (status) => {
+  //   setAuthentication(status);
+  // }
 
   /*Fake User Authentication Data*/
 
   return (
     <div className="App">
       <h1>Water-My-Plants</h1>
-      <Navigation authenticatedUser = {authenticatedUser} authenticateUserFunction = {authenticateUserFunction}/>
+      <Navigation />
       <Switch>
         <Route exact path="/">
             <Home></Home>

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import React, {useState,useContext,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import {useHistory,useParams} from 'react-router-dom'
 
 
@@ -27,7 +27,7 @@ const UpdateForm = ()=>{
         console.log('editing form ',res.data)
       })
       .catch(err=>console.log(err))
-    }, [])
+    }, [id])
     
     
     
