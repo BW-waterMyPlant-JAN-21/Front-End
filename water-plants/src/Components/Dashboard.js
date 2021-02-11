@@ -23,7 +23,7 @@ const Dashboard = () => {
     console.log('acive user in dashboard ',activeUser)
     
   axios
-  .get(`https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/plants/users/${activeUser}`,{headers:{authorization:token}})
+  .get(`https://waterplant-101.herokuapp.com/plants/users/${activeUser}`,{headers:{authorization:token}})
   .then(res=>{setPlants(res.data);console.log('plants in dashboard',plants)})
   .catch(err=>console.log(err))
   }, [])

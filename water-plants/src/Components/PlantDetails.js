@@ -22,7 +22,7 @@ const PlantDetails = () => {
 
     const deleteCard = ()=>{ 
     axios
-    .delete(`https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/plants/${id}`,{headers:{authorization:localStorage.getItem('token')}})
+    .delete(`https://waterplant-101.herokuapp.com/plants/${id}`,{headers:{authorization:localStorage.getItem('token')}})
     .then(res=>{console.log(`plant with id ${id} is deleted successfully`);push('/dashboard')})
     .catch(err=>console.log(err))
 }

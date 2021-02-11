@@ -20,7 +20,7 @@ const UpdateForm = ()=>{
 
     useEffect(() => {
       axios
-      .get(`https://cors-anywhere.herokuapp.com/https://waterplant-101.herokuapp.com/plants/${(id)}`,{headers:{authorization:localStorage.getItem('token')}})
+      .get(`https://waterplant-101.herokuapp.com/plants/${(id)}`,{headers:{authorization:localStorage.getItem('token')}})
 
       .then(res=>{
         setPlantDetails(res.data[0]);
